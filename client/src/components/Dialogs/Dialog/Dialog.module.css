@@ -1,0 +1,22 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    padding: 10px;
+}
+.interlocutors{
+    padding: 5px;
+    /* background-color: crimson; */
+}
+
+/* .interlocutor.active{
+    color: gold;
+} */
+
+/* .interlocutor a {
+    text-decoration: none;
+} */
+
+.interlocutorText {
+    padding: 5px;
+    /* background-color: coral; */
+}

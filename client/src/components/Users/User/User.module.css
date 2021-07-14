@@ -1,0 +1,45 @@
+.container_user{
+    border: 2px solid #dbdbdb;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 70%;
+    background: #e7e6e6;
+}
+.line_container_user{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.content_message{
+    width: 20%;
+
+}
+.city_country{
+    text-align: right;
+}
+.user_logo img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.user_logo div{
+    text-align: center;
+}
+
+.btn_follow_unfollow{
+    width: 60%;
+    text-align: right;
+}
+.follow_btn, .unfollow_btn{
+    padding: 5px;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+.follow_btn{
+    background: chartreuse;
+}
+.unfollow_btn{
+    background: crimson;
+}

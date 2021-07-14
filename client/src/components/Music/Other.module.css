@@ -1,0 +1,51 @@
+
+.heartLike{
+    position: relative;
+    top: 5px;
+    left: -80px;
+    width: 20px; 
+    height: 16px;
+}
+.heartLike:before, 
+.heartLike:after {
+    content: "";
+    position: absolute; 
+    left: 10px; 
+    top: 0;
+    width: 10px; 
+    height: 16px;
+    background: #cc0446;
+    border-radius: 10px 10px 0 0;
+    transform: rotate(-45deg); 
+    transform-origin: 0 100%;
+}
+.heartLike:after {
+    left: 0;
+    transform: rotate(45deg); 
+    transform-origin: 100% 100%;
+}
+.heartNotLike{
+    position: relative;
+    top: 5px;
+    left: -80px;
+    width: 20px; 
+    height: 16px;
+}
+.heartNotLike:before, 
+.heartNotLike:after {
+    content: "";
+    position: absolute; 
+    left: 10px; 
+    top: 0;
+    width: 10px; 
+    height: 16px;
+    background: #8b8a8a;
+    border-radius: 10px 10px 0 0;
+    transform: rotate(-45deg); 
+    transform-origin: 0 100%;
+}
+.heartNotLike:after {
+    left: 0;
+    transform: rotate(45deg); 
+    transform-origin: 100% 100%;
+}

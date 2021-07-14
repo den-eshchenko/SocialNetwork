@@ -1,0 +1,11 @@
+.container_image{
+    width: 55px;
+    height: 55px;
+}
+.image {
+    opacity: 0;
+}
+.image_loaded{
+    opacity: 1;
+    object-fit: cover;
+}

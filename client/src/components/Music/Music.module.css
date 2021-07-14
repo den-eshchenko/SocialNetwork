@@ -1,0 +1,327 @@
+.player{
+    position: fixed;
+    width: 66.66%;
+    bottom: 0;
+    z-index: 100;
+    background: #fff;
+    opacity: .9;
+}
+
+.track{
+    display: grid;
+    grid-template-areas:"navTrack titleTrack other"
+                        "navTrack titleTrack other";
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr 6fr 1fr;
+    padding: 7px;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+.track:hover{
+    border: 2px solid #FFD633;
+    padding: 5px;
+}
+
+.track:hover .navTrack a img{
+    opacity: 0.4;
+}
+
+.navTrack{
+    grid-area: navTrack;
+    padding-top: 4px;
+    padding-left: 4px;
+}
+.titleTrack{
+    grid-area: titleTrack;
+}
+.other{
+    grid-area: other;
+}
+.other span:nth-child(1){
+    cursor: pointer;
+}
+
+.navTrack{
+    position: relative;
+    width: 50px;
+    /* height: 50px; */
+}
+
+.track:hover  .navTrack a .control{ /*круг при наведении*/
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #FFD633;
+    z-index: 5;
+}
+
+.track:hover  .navTrack a .control::before{ /*треугольник*/
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    border: 7px solid transparent; 
+    border-left: 10px solid black;
+}
+.track:hover  .navTrack .active .control::before{ /*пауза (две параллельные прямые)*/
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 14px;
+    top: 8px;
+    left: 8px;
+    border-top: none;
+    border-right: 5px solid black;
+    border-bottom: none;
+    border-left: 5px solid black;
+}
+
+.active::before{ /*bounse когда трек играет*/
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #FFD633;
+    animation: pulse  1s infinite ease-in-out;
+}
+@keyframes pulse {
+    from {
+        transform: scale(.85);
+    }
+    50% {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(.85);
+    }
+}
+/* 
+.heartLike{
+    position: relative;
+    top: 5px;
+    left: -80px;
+    width: 20px; 
+    height: 16px;
+}
+.heartLike:before, 
+.heartLike:after {
+    content: "";
+    position: absolute; 
+    left: 10px; 
+    top: 0;
+    width: 10px; 
+    height: 16px;
+    background: #cc0446;
+    border-radius: 10px 10px 0 0;
+    transform: rotate(-45deg); 
+    transform-origin: 0 100%;
+}
+.heartLike:after {
+    left: 0;
+    transform: rotate(45deg); 
+    transform-origin: 100% 100%;
+}
+.heartNotLike{
+    position: relative;
+    top: 5px;
+    left: -80px;
+    width: 20px; 
+    height: 16px;
+}
+.heartNotLike:before, 
+.heartNotLike:after {
+    content: "";
+    position: absolute; 
+    left: 10px; 
+    top: 0;
+    width: 10px; 
+    height: 16px;
+    background: #8b8a8a;
+    border-radius: 10px 10px 0 0;
+    transform: rotate(-45deg); 
+    transform-origin: 0 100%;
+}
+.heartNotLike:after {
+    left: 0;
+    transform: rotate(45deg); 
+    transform-origin: 100% 100%;
+} */
+
+.bottom_preloader{
+    text-align: center;
+    height: 200px;
+}
+.bottom_preloader img{
+    width: 50px;
+    height: 50px;
+}
+
+
+
+
+/* palyer */
+
+.progressBlock{
+    position: relative;
+    top: -27px;
+}
+#progressAudio {
+    position: relative;
+    z-index: 2;
+    background: #c1c1c1;
+    cursor: pointer;
+}
+#progressAudio, #progressLoad{
+    -webkit-appearance: none;
+    width: 100%;
+    position: relative;
+}
+#progressAudio::-webkit-progress-bar{
+    background: #c1c1c1;
+} 
+#progressAudio::-webkit-progress-value{
+    background: #FFD633;
+}
+
+/*время для полосы прогресса */
+.progressBlock::before { 
+    content: attr(data-currenttime);
+    position: relative;
+    font-size: 10px;
+    opacity: 0; 
+}
+.img_volume_container::before{
+    content: attr(data-duration);
+    position: relative;
+    font-size: 10px;
+    opacity: 0;
+    z-index: 10;
+}
+.audioPlay:hover .progressBlock::before{
+    cursor: pointer;
+    content: attr(data-currenttime);
+    position: relative;
+    top: 21px;
+    left: 10px;
+    font-size: 10px;
+    opacity: 1;
+    z-index: 10;
+}
+.audioPlay:hover .img_volume_container::before{
+    cursor: pointer;
+    content: attr(data-duration);
+    position: relative;
+    top: -51px;
+    font-size: 10px;
+    opacity: 1;
+}
+#progressLoad{
+    position: relative;
+    top: -17px;
+    z-index: 1;
+}
+#progressLoad::-webkit-progress-bar {
+    background: #c1c1c1;
+}
+#progressLoad::-webkit-progress-value {
+    background: #8b8a8a;
+}
+
+/*стили кнопок управления */
+#backTrack{
+    background-image: url(../../assets/images/back.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+}
+#nextTrack{
+    background-image: url(../../assets/images/next.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+}
+.playAudio{
+    background-image: url(../../assets/images/play.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+
+}
+.playAudio:hover {
+    border-radius: 50%;
+    background: #FFD633;
+    background-image: url(../../assets/images/play.png);
+}
+.playAudio.active_button_play{
+    background-image: url(../../assets/images/pause.png);
+}
+
+.volumeAudio{
+    visibility: hidden;
+    position: relative;
+    width: 100px;
+    height: 10px;
+    top: -60px;
+    left: -38px;
+    -webkit-appearance: none;
+    background: #FFD633;
+    transform: rotate(630deg);
+    border-radius: 5px;
+    outline: none;
+}
+.volumeAudio::-webkit-slider-thumb{ /*стили курсора громкости*/
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: black;
+}
+
+.imgVolume{
+    position: relative;
+    top: -10px;
+    background: url(../../assets/images/volume+.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    z-index: 100;
+}
+.imgVolume.volume0 {
+    background: url(../../assets/images/volume-.png);
+}
+.imgVolume:hover .volumeAudio{
+    visibility: visible;
+}
+.navButtons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: -18px;
+}
+.lineInfoAndButton {
+    display: flex;
+    align-items: center;
+}
+.lineInfo{
+    display: flex;
+}

@@ -1,0 +1,42 @@
+.post_content{
+    margin-bottom: 5px;
+    padding: 10px;
+}
+/*стили лайка*/
+.likes_count{
+    font-size: 10px;
+}
+.post_like{
+    display: flex;
+}
+.heart_like{
+    position: relative;
+    width: 20px; 
+    height: 16px;
+}
+.heart_like:before, 
+.heart_like:after {
+    content: "";
+    position: absolute; 
+    left: 10px; 
+    width: 10px; 
+    height: 16px;
+    background: #cc0446;
+    border-radius: 10px 10px 0 0;
+    transform: rotate(-45deg); 
+    transform-origin: 0 100%;
+}
+.heart_like:after {
+    left: 0;
+    transform: rotate(45deg); 
+    transform-origin: 100% 100%;
+}
+
+.title_post{
+    display: flex;
+}
+.title_post img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

@@ -1,0 +1,28 @@
+.form_auth{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+    border: 2px solid #d4d4d4;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    background: #fff;
+    padding: 20px;
+    max-width: 450px;
+    background: #e6e6e6;
+}
+
+.content_form{
+    display: flex;
+}
+.fields div{
+    padding-left: 5px;
+    display: inline-flex;
+}
+.description div{
+    text-align: right;
+    padding: 1px;
+}
+.btn_submit{
+    margin-top: 20px;
+    text-align: right;
+}

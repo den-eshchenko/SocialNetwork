@@ -1,0 +1,154 @@
+.progressBlock{
+    position: relative;
+    top: -27px;
+}
+#progressAudio {
+    position: relative;
+    z-index: 2;
+    background: #c1c1c1;
+    cursor: pointer;
+}
+#progressAudio, #progressLoad{
+    -webkit-appearance: none;
+    width: 100%;
+    position: relative;
+}
+#progressAudio::-webkit-progress-bar{
+    background: #c1c1c1;
+} 
+#progressAudio::-webkit-progress-value{
+    background: #FFD633;
+}
+
+/*время для полосы прогресса */
+.progressBlock::before { 
+    content: attr(data-currenttime);
+    position: relative;
+    font-size: 10px;
+    opacity: 0; 
+}
+.img_volume_container::before{
+    content: attr(data-duration);
+    position: relative;
+    font-size: 10px;
+    opacity: 0;
+    z-index: 10;
+}
+.audioPlay:hover .progressBlock::before{
+    cursor: pointer;
+    content: attr(data-currenttime);
+    position: relative;
+    top: 17px;
+    left: 10px;
+    font-size: 10px;
+    opacity: 1;
+    z-index: 10;
+}
+.audioPlay:hover .img_volume_container::before{
+    cursor: pointer;
+    content: attr(data-duration);
+    position: relative;
+    top: -48px;
+    font-size: 10px;
+    opacity: 1;
+}
+#progressLoad{
+    position: relative;
+    top: -12px;
+    z-index: 1;
+}
+#progressLoad::-webkit-progress-bar {
+    background: #c1c1c1;
+}
+#progressLoad::-webkit-progress-value {
+    background: #8b8a8a;
+}
+
+/*стили кнопок управления */
+#backTrack{
+    background-image: url(../../assets/images/back.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+}
+#nextTrack{
+    background-image: url(../../assets/images/next.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+}
+.playAudio{
+    background-image: url(../../assets/images/play.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+
+}
+.playAudio:hover {
+    border-radius: 50%;
+    background: #FFD633;
+    background-image: url(../../assets/images/play.png);
+}
+.playAudio.active_button_play{
+    background-image: url(../../assets/images/pause.png);
+}
+
+.volumeAudio{
+    visibility: hidden;
+    position: relative;
+    width: 100px;
+    height: 10px;
+    top: -60px;
+    left: -38px;
+    -webkit-appearance: none;
+    background: #FFD633;
+    transform: rotate(630deg);
+    border-radius: 5px;
+    outline: none;
+}
+.volumeAudio::-webkit-slider-thumb{ /*стили курсора громкости*/
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: black;
+}
+
+.imgVolume{
+    position: relative;
+    top: -10px;
+    background: url(../../assets/images/volume+.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    z-index: 100;
+}
+.imgVolume.volume0 {
+    background: url(../../assets/images/volume-.png);
+}
+.imgVolume:hover .volumeAudio{
+    visibility: visible;
+}
+.navButtons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: -18px;
+}
+.lineInfoAndButton {
+    display: flex;
+    align-items: center;
+}
+.lineInfo{
+    display: flex;
+}

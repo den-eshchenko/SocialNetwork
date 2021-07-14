@@ -1,0 +1,11 @@
+.pagination{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.selected{
+    font-weight: bold;
+    /* cursor: pointer; */
+}
+.cursor{
+    cursor: pointer;
+}

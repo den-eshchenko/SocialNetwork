@@ -1,0 +1,52 @@
+.formInfo{
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+}
+.info{
+    max-width: 60%;
+    padding: 10px;
+    margin-left: 30px;
+    background: rgb(235, 234, 234);
+}
+
+.logo_photo img{
+    max-width: 100%;
+}
+
+.contacts{
+    padding-left: 20px;
+}
+
+.hide{
+    visibility: hidden;
+    position: absolute;
+}
+
+.logo_img label{
+    visibility: hidden;
+    cursor: pointer;
+    display: block;
+    background: burlywood;
+    padding: 5px;
+    position: absolute;
+    top: 200px;
+    font-size: 10px;
+}
+.logo_img:hover label{
+    top: 129px;
+    visibility: visible;
+    transition: .3s;
+}
+.logo_img label::before{
+    content: '';
+    background-image: url(../../../assets/images/photo-camera.png);
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: relative;
+}
+
+.info_about_work{
+    display: flex;
+}
