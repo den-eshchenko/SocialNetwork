@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Dialog.module.css';
+import { TDialogsProps } from './DialogContainer';
 
-function Dialog(props) {
+const Dialog = (props: TDialogsProps) => {
   let state = props.dialogsPage;
   let outInterlocutorData = state.interlocutorData.map((elem) => { 
     return (
@@ -23,8 +24,8 @@ function Dialog(props) {
     props.sendMessage();
   };
 
-  let updateDialogText = (e) => {
-    let text = e.target.value;
+  let updateDialogText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let text = event.target.value;
     props.updateDialogText(text); 
   }
 
@@ -37,7 +38,7 @@ function Dialog(props) {
         <div className={s.interlocutorText}>
           {outInterlocutorText}
           <div>
-            <textarea onChange={updateDialogText} name="" id="" cols="30" rows="2" value={props.dialogsPage.dialogCurrentText}></textarea>
+            <textarea onChange={ updateDialogText } name="" id="" cols={30} rows={2} value={props.dialogsPage.dialogCurrentText}></textarea>
             <div><button onClick={sendMessage}>send</button></div>
           </div>
         </div>

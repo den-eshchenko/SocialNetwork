@@ -1,7 +1,5 @@
-import React from 'react';
 import s from './Nav.module.css';
 import { NavLink, Route, Switch } from 'react-router-dom';
-import Dialogs from '../Dialogs/Dialogs';
 import NoPage from '../NoPage';
 import News from '../News/News';
 import Settings from '../Settings/Settings';
@@ -11,6 +9,7 @@ import ProfileContainer from '../Profile/ProfileContainer';
 import MusicContainer from '../Music/MusicContainer';
 import Login from '../Header/Auth/Login';
 import Registration from '../Header/Auth/Registration';
+import DialogContainer from '../Dialogs/Dialog/DialogContainer';
 
 function Nav(props) {
   return (
@@ -28,7 +27,7 @@ function Nav(props) {
         <Switch>
           <Route path="/profile/:userID?" render={() => <ProfileContainer />} />
           <Route exact path="/users" render={() => <UsersContainers />} />
-          <Route exact path="/dialogs" render={() => <Dialogs />} />
+          <Route exact path="/dialogs" render={() => <DialogContainer />} />
           <Route exact path="/news" render={() => <News />} />
           <Route exact path="/music" render={() => <MusicContainer />} />
           <Route exact path="/settings" render={() => <Settings />} />

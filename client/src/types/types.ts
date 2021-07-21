@@ -5,7 +5,7 @@ export type DefaultStateAuthReduserType = {
 }
 export type DialogsTextDataType = {
     id: number | null
-    message: string | null
+    message: string | undefined
 }
 export type InterlocutorDataType = {
     id: number | null

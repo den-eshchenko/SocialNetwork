@@ -9,7 +9,7 @@ let defaultStateFromDialogsPage = {
         { id: 2, message: 'How are you' },
         { id: 3, message: 'Yo' }
     ] as Array<DialogsTextDataType>,
-    dialogCurrentText: 'default text' as string | null,
+    dialogCurrentText: 'default text' as string | undefined,
     interlocutorData: [ // для Dialogs - собеседники
         { id: 1, name: 'Dmitry' },
         { id: 2, name: 'Andrey' },
@@ -20,9 +20,9 @@ let defaultStateFromDialogsPage = {
     ] as Array<InterlocutorDataType>
 }
 
-type DefaultStateFromDialogsPageType = typeof defaultStateFromDialogsPage
+export type DefaultStateFromDialogsPageType = typeof defaultStateFromDialogsPage;
 
-const dialogsPageReduser = (state = defaultStateFromDialogsPage, action: any): DefaultStateFromDialogsPageType => {
+const dialogsPageReduser = (state = defaultStateFromDialogsPage, action: ActionDialogsType): DefaultStateFromDialogsPageType => {
     switch (action.type) {
         case ADD_DIALOG_MESSAGE:
             return {
@@ -40,14 +40,16 @@ const dialogsPageReduser = (state = defaultStateFromDialogsPage, action: any): D
     }
 }
 
+export type ActionDialogsType = AddDialogMessageACType | UpdateDialogCurrentTextACType;
+
 export type AddDialogMessageACType = {type: typeof ADD_DIALOG_MESSAGE};
 export const addDialogMessageActionCreator = (): AddDialogMessageACType => ({ type: ADD_DIALOG_MESSAGE });
 
 export type UpdateDialogCurrentTextACType = {
     type: typeof UPDATE_DIALOG_CURRENT_TEXT
-    newText: string | null
+    newText: string | undefined
 }
-export const updateDialogCurrentTextActionCreator = (text: string): UpdateDialogCurrentTextACType => {
+export const updateDialogCurrentTextActionCreator = (text: string | undefined): UpdateDialogCurrentTextACType => {
     return {
         type: UPDATE_DIALOG_CURRENT_TEXT,
         newText: text

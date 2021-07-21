@@ -7,6 +7,11 @@ import thunkMiddleware from 'redux-thunk';
 import appReduser from './appReduser';
 import musicReduser from './musicReduser';
 
+type RedusersType = typeof redusers;
+export type AppStateType = ReturnType<RedusersType>
+
+export type AppDispatchType = typeof store.dispatch
+
 let redusers = combineReducers(  
     {
         proffilePage: proffilePageReduser,  
@@ -17,8 +22,9 @@ let redusers = combineReducers(
         music: musicReduser
     }
 );
-// let store = createStore(redusers, applyMiddleware(thunkMiddleware));
 
+// let store = createStore(redusers, applyMiddleware(thunkMiddleware));
+// @ts-ignore 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const store = createStore(redusers, composeEnhancers(applyMiddleware(thunkMiddleware))); 
 

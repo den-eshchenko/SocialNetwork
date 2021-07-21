@@ -1,5 +1,7 @@
 import { stopSubmit } from "redux-form";
+import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../api";
+import { AppDispatchType, AppStateType } from "./reduxStore";
 
 const IS_AUTH = "IS_AUTH";
 const LOGO_USER = "LOGO_USER";
@@ -11,14 +13,13 @@ let defaultStateAuthReduser = {
     password: null as string | null,
     password_confirm: null as string | null,
     logo_user: null as string | null,
-    // isAuth: [false, readCookie('user'), null] as [boolean, string, number | null]// авториован или нет, меняется на false если не авторизован или нет куки, имя, id
     isAuth: [false, "guest", null] as [boolean, string, number | null]
 }
 
 type DefaultStateAuthReduserType = typeof defaultStateAuthReduser
 
 
-const authReduser = (state = defaultStateAuthReduser, action: any): DefaultStateAuthReduserType => {
+const authReduser = (state = defaultStateAuthReduser, action: ActionAuthType): DefaultStateAuthReduserType => {
     switch (action.type) {
         case IS_AUTH:
             return {
@@ -33,13 +34,16 @@ const authReduser = (state = defaultStateAuthReduser, action: any): DefaultState
     }
 }
 
+type ActionAuthType = IsAuthdACType | LogoUserACType;
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionAuthType>;
+
 export type IsAuthdACType = {
     type: typeof IS_AUTH
     isAuth: boolean
     login: string 
-    user?: number | null
+    user: number | null
 };
-export const isAuthdAC = (isAuth: boolean, login: string, user?: number | null): IsAuthdACType =>  {return { type: IS_AUTH, isAuth, login, user}};
+export const isAuthdAC = (isAuth: boolean, login: string, user: number | null): IsAuthdACType =>  {return { type: IS_AUTH, isAuth, login, user}};
 
 export type LogoUserACType = {
     type: typeof LOGO_USER
@@ -47,8 +51,8 @@ export type LogoUserACType = {
 };
 export const logoUserAC = (logo: string | null): LogoUserACType =>  {return { type: LOGO_USER, logo }};
 
-export const onRegistrationTС = (auth: any) => {
-    return (dispatch: any) => {
+export const onRegistrationTС = (auth: any): ThunkType => {
+    return (dispatch) => {
         authAPI.goRegistration(auth)
           .then((response: any) => {
             console.log(response);
@@ -56,8 +60,8 @@ export const onRegistrationTС = (auth: any) => {
           }, (err: any) => Promise.reject(err))
     }
 }
-export const onAutorizationTС = (auth: any) => {
-    return (dispatch: any) => {
+export const onAutorizationTС = (auth: any): ThunkType => {
+    return (dispatch: AppDispatchType) => {
         authAPI.goAutorization(auth)
           .then((response: any) => {
             if(response.status === 1){
@@ -74,8 +78,8 @@ export const onAutorizationTС = (auth: any) => {
           }, (err: any) => Promise.reject(err))
     }
 }
-export const onLogoutTС = (login: any) => {
-    return (dispatch: any) => {
+export const onLogoutTС = (login: any): ThunkType => {
+    return (dispatch) => {
         authAPI.goLogout(login)
           .then((response: any) => {
             console.log(response);
@@ -87,8 +91,8 @@ export const onLogoutTС = (login: any) => {
     }
 }
 
-export const meTC = () => {
-    return (dispatch: any) => {
+export const meTC = (): ThunkType => {
+    return (dispatch) => {
         authAPI.me()
             .then((response: any) => {
                 console.log(response);
