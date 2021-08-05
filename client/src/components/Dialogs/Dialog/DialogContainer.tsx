@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import {ActionDialogsType, addDialogMessageActionCreator, DefaultStateFromDialogsPageType, updateDialogCurrentTextActionCreator } from '../../../redux/dialogsPageReduser';
+import {ActionsDialogsType, actionsDialog, DefaultStateFromDialogsPageType } from '../../../redux/dialogsPageReduser';
 import { AppStateType } from '../../../redux/reduxStore';
 import { withAuthRediderct } from '../../HOC/withAuthRedirect';
 import Dialog from './Dialog';
@@ -23,13 +23,13 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     dialogsPage: state.dialogsPage 
   }
 }
-let mapDispatchToProps = (dispatch: Dispatch<ActionDialogsType>): MapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch<ActionsDialogsType>): MapDispatchToPropsType => {
   return {
     sendMessage: ()=>{
-      dispatch(addDialogMessageActionCreator());
+      dispatch(actionsDialog.addDialogMessageActionCreator());
     },
     updateDialogText: (text)=>{
-      dispatch(updateDialogCurrentTextActionCreator(text));
+      dispatch(actionsDialog.updateDialogCurrentTextActionCreator(text));
     }
   }  
 }

@@ -1,28 +1,47 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Form, Field } from 'react-final-form';
+import { ContactsType } from '../../../types/types';
 import { Input, TextArea } from '../../common/FormsControls/FormsControls';
 import Preloader from '../../common/Preloader/Preloader';
 import PostsContainer from '../Posts/PostsContainer';
 import s from './AboutMe.module.css';
 
+type PropsType = {
+  contacts: ContactsType
+  savePhoto: (photo: any) => void
+  photo: () => string | undefined
+  isFetching: boolean
+  isAuth: boolean
+  fullName: string
+  aboutMe: string
+  lookingForAJob: boolean
+  onChangeAboutMe: (values: any) => void
+}
 
-function AboutMe(props) {
-  let getPhoto = (e) => {
-    console.log(e.target.files[0].name.length);
-    if (e.target.files[0]) {
-      if(e.target.files[0].name.length > 10){
-        let nameFile = e.target.files[0].name.slice(0, 10) + "..." + e.target.files[0].name.slice(-4);
-        e.target.nextSibling.innerHTML = nameFile;  
-      } else e.target.nextSibling.innerHTML = e.target.files[0].name;
-  
-      let photo = e.target.files[0];
-      props.savePhoto(photo);
+function AboutMe(props: PropsType) {
+  const getPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+    // console.log(e.target.files[0].name.length);
+    if (e.target.files) {
+      if (e.target.files[0]) {
+        if (e.target.files[0].name.length > 10) {
+          if (e.target.nextSibling) {
+            let nameFile = e.target.files[0].name.slice(0, 10) + "..." + e.target.files[0].name.slice(-4);
+            e.target.nextSibling.textContent = nameFile;
+          }  
+        } else 
+          if (e.target.nextSibling) {
+            e.target.nextSibling.textContent = e.target.files[0].name;
+          }
+    
+        let photo = e.target.files[0];
+        props.savePhoto(photo);
+      }
     }
   }
-  const Contacts = ({ contact, valContact }) => {
+  const Contacts = ({ contact, valContact }: {contact: string, valContact: string | null}) => {
     return <div className={s.contacts}><b>{contact}:</b> {valContact}</div>
   }
-  const ContactsForForm = ({ contact, valContact }) => {
+  const ContactsForForm = ({ contact, valContact }: {contact: string, valContact: string | null}) => {
     return <div className={s.contacts}>
               <b>{contact}:</b> 
               <div>
@@ -61,8 +80,8 @@ function AboutMe(props) {
             <p><b>Обо мне:</b> {props.aboutMe}</p>
             <p><b>Ищу ли работу:</b> {props.lookingForAJob ? "да" : "нет"}</p>
             <div><b>Контакты:</b></div>
-            {Object.entries(props.contacts).map(key => {
-              return <Contacts key={key} contact={key[0]} valContact={key[1]} />
+            {Object.entries(props.contacts).map( (key, i) => {
+              return <Contacts key={i} contact={key[0]} valContact={key[1]} />
             })}
             <PostsContainer />
           </div>
@@ -104,8 +123,8 @@ function AboutMe(props) {
                   </div>
                 </div>
                 <div><b>Контакты:</b></div>
-                {Object.entries(props.contacts).map(key => {
-                  return <ContactsForForm key={key} contact={key[0]} valContact={key[1]} />
+                {Object.entries(props.contacts).map( (key, i) => {
+                  return <ContactsForForm key={i} contact={key[0]} valContact={key[1]} />
                 })}
                 <button>Подтвердить</button>
                 <button onClick={deactivateEditMode}>Отмена</button>

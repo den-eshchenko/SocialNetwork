@@ -1,7 +1,5 @@
 import { DialogsTextDataType, InterlocutorDataType } from "../types/types";
-
-const ADD_DIALOG_MESSAGE = "ADD-DIALOG-MESSAGE";
-const UPDATE_DIALOG_CURRENT_TEXT = "UPDATE-DIALOG-CURRENT-TEXT";
+import { ActionsType } from "./reduxStore";
 
 let defaultStateFromDialogsPage = {
     dialogsTextData: [ // для Dialogs - текст
@@ -22,15 +20,15 @@ let defaultStateFromDialogsPage = {
 
 export type DefaultStateFromDialogsPageType = typeof defaultStateFromDialogsPage;
 
-const dialogsPageReduser = (state = defaultStateFromDialogsPage, action: ActionDialogsType): DefaultStateFromDialogsPageType => {
+const dialogsPageReduser = (state = defaultStateFromDialogsPage, action: ActionsDialogsType): DefaultStateFromDialogsPageType => {
     switch (action.type) {
-        case ADD_DIALOG_MESSAGE:
+        case 'ADD_DIALOG_MESSAGE':
             return {
                 ...state,
                 dialogsTextData: [...state.dialogsTextData, { id: 4, message: state.dialogCurrentText }],
                 dialogCurrentText: ''
             }
-        case UPDATE_DIALOG_CURRENT_TEXT:
+        case 'UPDATE_DIALOG_CURRENT_TEXT':
             return {
                 ...state,
                 dialogCurrentText: action.newText
@@ -40,20 +38,14 @@ const dialogsPageReduser = (state = defaultStateFromDialogsPage, action: ActionD
     }
 }
 
-export type ActionDialogsType = AddDialogMessageACType | UpdateDialogCurrentTextACType;
+export type ActionsDialogsType = ActionsType<typeof actionsDialog>
 
-export type AddDialogMessageACType = {type: typeof ADD_DIALOG_MESSAGE};
-export const addDialogMessageActionCreator = (): AddDialogMessageACType => ({ type: ADD_DIALOG_MESSAGE });
-
-export type UpdateDialogCurrentTextACType = {
-    type: typeof UPDATE_DIALOG_CURRENT_TEXT
-    newText: string | undefined
-}
-export const updateDialogCurrentTextActionCreator = (text: string | undefined): UpdateDialogCurrentTextACType => {
-    return {
-        type: UPDATE_DIALOG_CURRENT_TEXT,
-        newText: text
-    }
+export const actionsDialog = {
+    updateDialogCurrentTextActionCreator: (text: string | undefined) => ({
+            type: 'UPDATE_DIALOG_CURRENT_TEXT',
+            newText: text
+    } as const),
+    addDialogMessageActionCreator: () => ({ type: 'ADD_DIALOG_MESSAGE' } as const)
 }
 
 export default dialogsPageReduser;

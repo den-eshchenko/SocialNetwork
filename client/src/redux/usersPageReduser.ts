@@ -1,14 +1,6 @@
 import { followUnfollowAPI, usersAPI } from "../api";
 import { UsersType } from "../types/types";
-
-const SETUSERS = "SETUSERS";
-const PAGES_COUNT = "PAGES_COUNT";
-const USERS_COUNT = "USERS_COUNT";
-const TOTAL_USERS_COUNT = "TOTAL_USERS_COUNT";
-const CURRENT_PAGE = "CURRENT_PAGE";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-const TOGGLE_IS_DISABLED = "TOGGLE_IS_DISABLED";
-const FOLLOW_UNFOLLOW = "FOLLOW_UNFOLLOW";
+import { ActionsType } from "./reduxStore";
 
 let defaultStateFromUsersPage = {
     users: [] as Array<UsersType>,
@@ -22,13 +14,13 @@ let defaultStateFromUsersPage = {
 
 type DefaultStateFromUsersPageType = typeof defaultStateFromUsersPage
 
-const usersPageReduser = (state = defaultStateFromUsersPage, action: any): DefaultStateFromUsersPageType => {
+const usersPageReduser = (state = defaultStateFromUsersPage, action: ActionsUsersType): DefaultStateFromUsersPageType => {
     switch (action.type) {
-        case SETUSERS:
+        case 'SETUSERS':
             return {
                 ...state, users: [...action.users]
             }
-        case FOLLOW_UNFOLLOW: 
+        case 'FOLLOW_UNFOLLOW': 
             return {
                 ...state,
                 users: state.users.map((u) => {
@@ -38,27 +30,27 @@ const usersPageReduser = (state = defaultStateFromUsersPage, action: any): Defau
                     return u;
                 })
             }
-        case PAGES_COUNT:
+        case 'PAGES_COUNT':
             return {
                 ...state, pagesCount: action.pagesCount
             }
-        case USERS_COUNT:
+        case 'USERS_COUNT':
             return {
                 ...state, usersCount: action.usersCount
             }
-        case TOTAL_USERS_COUNT:
+        case 'TOTAL_USERS_COUNT':
             return {
                 ...state, totalUsersCount: action.totalUsersCount
             }
-        case CURRENT_PAGE:
+        case 'CURRENT_PAGE':
             return {
                 ...state, currentPage: action.currentPage
             }
-        case TOGGLE_IS_FETCHING:
+        case 'TOGGLE_IS_FETCHING':
             return {
                 ...state, isFetching: action.isFetching
             }
-        case TOGGLE_IS_DISABLED:
+        case 'TOGGLE_IS_DISABLED':
             return {
                 ...state,
                 isDisabled: action.isDisabled ?
@@ -70,52 +62,41 @@ const usersPageReduser = (state = defaultStateFromUsersPage, action: any): Defau
     }
 }
 
-export type FollowUnfollowType = { type: typeof FOLLOW_UNFOLLOW, userId: number }
-export const followUnfollow = (userId: number): FollowUnfollowType => { return { type: FOLLOW_UNFOLLOW, userId } }
+export type ActionsUsersType = ActionsType<typeof actionsUsers>
 
-export type SetUsersACType = { type: typeof SETUSERS, users: Array<UsersType> }
-export const setUsersAC = (users: Array<UsersType>): SetUsersACType => { return { type: SETUSERS, users: users } }
-
-export type SetPagesCountACType = { type: typeof PAGES_COUNT, pagesCount: number }
-export const setPagesCountAC = (pagesCount: number): SetPagesCountACType => { return { type: PAGES_COUNT, pagesCount: pagesCount } }
-
-export type SetUsersCountACType = { type: typeof USERS_COUNT, usersCount: number }
-export const setUsersCountAC = (usersCount: number): SetUsersCountACType => { return { type: USERS_COUNT, usersCount: usersCount } }
-
-export type SetTotalUsersCountACType = { type: typeof TOTAL_USERS_COUNT, totalUsersCount: number }
-export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCountACType => { return { type: TOTAL_USERS_COUNT, totalUsersCount: totalUsersCount } }
-
-export type SetСurrentPageACType = { type: typeof CURRENT_PAGE, currentPage: number }
-export const setСurrentPageAC = (currentPage: number): SetСurrentPageACType => { return { type: CURRENT_PAGE, currentPage: currentPage } }
-
-export type ToggleIsFetchingACType = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
-export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingACType => { return { type: TOGGLE_IS_FETCHING, isFetching: isFetching } }
-
-export type ToggleIsDisabledACType = { type: typeof TOGGLE_IS_DISABLED, isDisabled: boolean, userId: number }
-export const toggleIsDisabledAC = (isDisabled: boolean, userId: number): ToggleIsDisabledACType => { return { type: TOGGLE_IS_DISABLED, isDisabled, userId } }
+export const actionsUsers = {
+    followUnfollow: (userId: number) => ({ type: 'FOLLOW_UNFOLLOW', userId } as const),
+    setUsersAC: (users: Array<UsersType>) => { return { type: 'SETUSERS', users: users } as const},
+    setPagesCountAC: (pagesCount: number) => { return { type: 'PAGES_COUNT', pagesCount: pagesCount } as const},
+    setUsersCountAC: (usersCount: number) => { return { type: 'USERS_COUNT', usersCount: usersCount } as const},
+    setTotalUsersCountAC: (totalUsersCount: number) => { return { type: 'TOTAL_USERS_COUNT', totalUsersCount: totalUsersCount } as const},
+    setСurrentPageAC: (currentPage: number) => { return { type: 'CURRENT_PAGE', currentPage: currentPage } as const},
+    toggleIsFetchingAC: (isFetching: boolean) => { return { type: 'TOGGLE_IS_FETCHING', isFetching: isFetching } as const},
+    toggleIsDisabledAC: (isDisabled: boolean, userId: number) => { return { type: 'TOGGLE_IS_DISABLED', isDisabled, userId } as const}   
+}
 
 export const getUsersTC = (pageNumber: number, usersCount?: number) => {
     return (dispatch: any) => {
-        dispatch(toggleIsFetchingAC(true));
+        dispatch(actionsUsers.toggleIsFetchingAC(true));
         usersAPI.getUsers(pageNumber, usersCount)
         .then((response: any) => {
-            dispatch(setСurrentPageAC(pageNumber));
-            dispatch(setUsersAC(response.items));
-            dispatch(setTotalUsersCountAC(response.totalCount));
-            dispatch(toggleIsFetchingAC(false));
+            dispatch(actionsUsers.setСurrentPageAC(pageNumber));
+            dispatch(actionsUsers.setUsersAC(response.items));
+            dispatch(actionsUsers.setTotalUsersCountAC(response.totalCount));
+            dispatch(actionsUsers.toggleIsFetchingAC(false));
         }, (err: any) => Promise.reject(err)) 
     }
 }
 
 export const followUnfollowTC = (userId: number) => {
     return (dispatch: any) => {
-        dispatch(toggleIsDisabledAC(true, userId));
+        dispatch(actionsUsers.toggleIsDisabledAC(true, userId));
         followUnfollowAPI.followOrUnfollow(userId)
         .then((response: any) => {
             if (response.status === 1) {
-                dispatch(followUnfollow(userId));
+                dispatch(actionsUsers.followUnfollow(userId));
             }
-            dispatch(toggleIsDisabledAC(false, userId));
+            dispatch(actionsUsers.toggleIsDisabledAC(false, userId));
         }, (err: any) => Promise.reject(err))   
     }
 

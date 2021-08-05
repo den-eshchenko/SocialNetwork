@@ -31,7 +31,7 @@ type LocationType = {
     city: string
     country: string
 }
-type ContactsType = {
+export type ContactsType = {
     facebook: string | null,
     website: string | null,
     twitter: string | null,
@@ -52,4 +52,8 @@ export type UsersType = {
     contacts: ContactsType
     lookingForAJob: boolean
 }
-
+export type UsersResponseType = {
+    items: Array<UsersType>
+    totalCount: number
+    errors: string | null
+}
